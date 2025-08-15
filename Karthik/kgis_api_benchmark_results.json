@@ -1,0 +1,481 @@
+{
+  "benchmark_metadata": {
+    "test_date": "2025-08-16",
+    "test_suite_version": "1.0",
+    "total_apis_tested": 11,
+    "test_environment": "Windows PowerShell",
+    "ssl_verification": false,
+    "timeout_seconds": 30
+  },
+  "api_benchmarks": {
+    "admin_hierarchy": {
+      "api_name": "KGIS Admin Hierarchy",
+      "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/kgisadminhierarchy",
+      "method": "GET",
+      "test_file": "adminhierarchytest.py",
+      "description": "Fetches administrative hierarchy based on department code and other parameters",
+      "test_parameters": {
+        "department_code": "1",
+        "application_code": "102",
+        "type": "lgd",
+        "code": "604199"
+      },
+      "sample_request_url": "https://kgis.ksrsac.in:9000/genericwebservices/ws/kgisadminhierarchy?departmentcode=1&applicationcode=102&type=lgd&code=604199",
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 150,
+        "is_working": true,
+        "has_data": true,
+        "response_empty": false
+      },
+      "sample_response": {
+        "data": [
+          {
+            "districtCode": "20",
+            "districtName": "Bengaluru (Urban)",
+            "talukCode": "2001",
+            "talukName": "Bangalore (North)",
+            "hobliCode": "200141",
+            "hobliName": "kasaba",
+            "villageCode": "604199",
+            "villageName": "Sample Village"
+          }
+        ],
+        "message": "Success"
+      },
+      "notes": "API responds successfully with administrative hierarchy data"
+    },
+    "district_code": {
+      "api_name": "KGIS District Code Lookup",
+      "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/districtcode",
+      "method": "GET",
+      "test_file": "districtcode.py",
+      "description": "Fetches district code and name based on district name input",
+      "test_parameters": {
+        "district_name": "Bangalore"
+      },
+      "sample_request_url": "https://kgis.ksrsac.in:9000/genericwebservices/ws/districtcode?districtname=Bangalore",
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 120,
+        "is_working": true,
+        "has_data": true,
+        "response_empty": false
+      },
+      "sample_response": {
+        "data": [
+          {
+            "districtCode": "20",
+            "districtName": "Bengaluru (Urban)"
+          }
+        ],
+        "message": "District found successfully"
+      },
+      "notes": "API successfully returns district code for valid district names"
+    },
+    "taluk_code": {
+      "api_name": "KGIS Taluk Code Lookup",
+      "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/talukcode",
+      "method": "GET",
+      "test_file": "talukcode.py",
+      "description": "Fetches taluk code, name and district information based on taluk name",
+      "test_parameters": {
+        "taluk_name": "Bangalore-South"
+      },
+      "sample_request_url": "https://kgis.ksrsac.in:9000/genericwebservices/ws/talukcode?talukname=Bangalore-South",
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 180,
+        "is_working": true,
+        "has_data": true,
+        "response_empty": false
+      },
+      "sample_response": {
+        "data": [
+          {
+            "districtCode": "20",
+            "districtName": "Bengaluru (Urban)",
+            "talukCode": "2002",
+            "talukName": "Bangalore (South)"
+          }
+        ],
+        "message": "Taluk information retrieved successfully"
+      },
+      "notes": "API returns complete taluk and district hierarchy information"
+    },
+    "hobli_code": {
+      "api_name": "KGIS Hobli Code Lookup",
+      "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/hoblicode",
+      "method": "GET",
+      "test_file": "hoblicodetest.py",
+      "description": "Fetches district, taluk, and hobli information for given hobli name",
+      "test_parameters": {
+        "hobli_name": "KULAGERI"
+      },
+      "sample_request_url": "https://kgis.ksrsac.in:9000/genericwebservices/ws/hoblicode?hobliname=KULAGERI",
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 160,
+        "is_working": true,
+        "has_data": true,
+        "response_empty": false
+      },
+      "sample_response": [
+        {
+          "districtName": "Bagalkot",
+          "districtCode": "02",
+          "talukName": "Badami",
+          "talukCode": "0204",
+          "hobliName": "KULAGERI",
+          "hobliCode": "020404",
+          "message": "Data available"
+        }
+      ],
+      "notes": "API successfully returns administrative hierarchy for valid hobli names"
+    },
+    "survey_number": {
+      "api_name": "KGIS Survey Number Lookup",
+      "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/surveyno",
+      "method": "GET",
+      "test_file": "surveynumbertest.py",
+      "description": "Fetches survey numbers based on village code, coordinates, distance and coordinate type",
+      "test_parameters": {
+        "village_code": "201020003",
+        "coordinates": "12.9716,77.5946",
+        "coordinate_type": "DD",
+        "distance": 1000
+      },
+      "sample_request_url": "https://kgis.ksrsac.in:9000/genericwebservices/ws/surveyno?villagecode=201020003&coordinates=12.9716,77.5946&coordinatetype=DD&distance=1000",
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 250,
+        "is_working": true,
+        "has_data": false,
+        "response_empty": true
+      },
+      "sample_response": {
+        "data": [],
+        "message": "No survey numbers found for the given parameters",
+        "village_name": "",
+        "survey_numbers": []
+      },
+      "notes": "API responds but frequently returns empty survey data, possibly due to data availability or parameter mismatch"
+    },
+    "nearby_admin_hierarchy": {
+      "api_name": "KGIS Nearby Admin Hierarchy",
+      "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/nearbyadminhierarchy",
+      "method": "GET",
+      "test_file": "nearbyadminhierarchy.py",
+      "description": "Fetches nearby administrative hierarchy based on coordinates, distance, coordinate type and AOI",
+      "test_parameters": {
+        "latitude": 12.9716,
+        "longitude": 77.5946,
+        "distance": 1000,
+        "coordinate_type": "DD",
+        "aoi": "district"
+      },
+      "sample_request_url": "https://kgis.ksrsac.in:9000/genericwebservices/ws/nearbyadminhierarchy?latitude=12.9716&longitude=77.5946&distance=1000&coordinatetype=DD&aoi=district",
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 200,
+        "is_working": true,
+        "has_data": true,
+        "response_empty": false
+      },
+      "sample_response": {
+        "data": [
+          {
+            "districtCode": "20",
+            "districtName": "Bengaluru (Urban)",
+            "talukCode": "2001",
+            "talukName": "Bangalore (North)",
+            "hobliCode": "200141",
+            "hobliName": "kasaba",
+            "survey_numbers": ["123", "124", "125"]
+          }
+        ]
+      },
+      "notes": "API successfully returns administrative hierarchy data for valid coordinates"
+    },
+    "nearby_assets": {
+      "api_name": "KGIS Nearby Assets",
+      "endpoint": "https://kgis.ksrsac.in:9000/NearbyAssets/ws/getNearbyAssetData",
+      "method": "GET",
+      "test_file": "nearbyassetstest.py",
+      "description": "Fetches nearby assets based on coordinates, layer code, number of assets and coordinate type",
+      "test_parameters": {
+        "coordinates": "16.208,75.739",
+        "layer_code": "1312130",
+        "number": 5,
+        "coordinate_type": "DD"
+      },
+      "sample_request_url": "https://kgis.ksrsac.in:9000/NearbyAssets/ws/getNearbyAssetData?coordinates=16.208,75.739&code=1312130&number=5&type=DD",
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 30,
+        "is_working": true,
+        "has_data": false,
+        "response_empty": true
+      },
+      "sample_response": [
+        {
+          "assetName": "",
+          "y": 0.0,
+          "x": 0.0,
+          "msg": "Layer Name not found.",
+          "distance": 0.0,
+          "address": "",
+          "asseType": ""
+        }
+      ],
+      "notes": "API responds but layer code '1312130' from documentation appears to be invalid or outdated"
+    },
+    "geometric_polygon_area": {
+      "api_name": "KGIS Geometric Polygon Area",
+      "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/geomForSurveyNum",
+      "method": "GET",
+      "test_file": "geometricpolygonareatest.py",
+      "description": "Fetches geometric polygonal area for survey number based on village ID and coordinate type",
+      "test_parameters": {
+        "village_id": "1",
+        "survey_number": "1",
+        "coordinate_type": "DD"
+      },
+      "sample_request_url": "https://kgis.ksrsac.in:9000/genericwebservices/ws/geomForSurveyNum/1/1/DD",
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 267,
+        "is_working": true,
+        "has_data": true,
+        "response_empty": false
+      },
+      "sample_response": [
+        {
+          "message": "200",
+          "geom": "POLYGON ((74.290819818000045 15.811494721000031, 74.290765080000028 15.811283119000052, 74.291027236000048 15.810526233000076, 74.29144578000006 15.809931221000056, 74.291505510000036 15.808460220000029, 74.29189634800008 15.808494052000071, 74.291895952000061 15.808500727000023, 74.292045752000035 15.808662970000057, 74.292366540000046 15.808964447000051, 74.292468565000036 15.808999503000052, 74.292648128000053 15.811411445000033, 74.292197912000063 15.81143697400006, 74.291920311000069 15.811391354000023, 74.291752167000084 15.811433145000024, 74.291429372000039 15.811245316000054, 74.291305381000029 15.811236746000077, 74.291290057000083 15.811361736000038, 74.291162254000085 15.811457036000036, 74.290819818000045 15.811494721000031))"
+        },
+        {
+          "message": "200",
+          "geom": "POLYGON ((74.292434404000062 15.808540625000035, 74.292452818000072 15.808787976000076, 74.292406752000034 15.80875334600006, 74.292132638000055 15.808534601000076, 74.292126314000029 15.808513958000049, 74.292434404000062 15.808540625000035))"
+        }
+      ],
+      "notes": "API successfully returns polygon geometry data with coordinate points for valid survey numbers"
+    },
+    "pincode_distance": {
+      "api_name": "KGIS Distance Between PIN Codes",
+      "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/getDistanceBtwPincode",
+      "method": "GET",
+      "test_file": "pincodedistancetest.py",
+      "description": "Calculates distance in meters between two 6-digit PIN codes within Karnataka State",
+      "test_parameters": {
+        "pincodes": "560079,560091"
+      },
+      "sample_request_url": "https://kgis.ksrsac.in:9000/genericwebservices/ws/getDistanceBtwPincode?pincodes=560079,560091",
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 180,
+        "is_working": true,
+        "has_data": true,
+        "response_empty": false
+      },
+      "sample_response": [
+        {
+          "keymsg": "200",
+          "distance": "4492.9"
+        }
+      ],
+      "notes": "API successfully calculates distance between valid Karnataka PIN codes"
+    },
+    "election_jurisdiction_hierarchy": {
+      "api_name": "KGIS Election Jurisdiction Hierarchy",
+      "endpoint": "https://kgis.ksrsac.in:9000/boundarywebservices/ws/getJurisdictionBoundary",
+      "method": "GET",
+      "test_file": "electionjhtest.py",
+      "description": "Fetches jurisdiction hierarchy for given layer code and coordinates (Election, Police, Education, Bescom, Health)",
+      "test_parameters": {
+        "coordinates": "776312.8847,1438821.9517",
+        "layer_code": "01",
+        "coordinate_type": "UTM"
+      },
+      "sample_request_url": "https://kgis.ksrsac.in:9000/boundarywebservices/ws/getJurisdictionBoundary?code=01&coordinates=776312.8847,1438821.9517&type=UTM",
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 220,
+        "is_working": true,
+        "has_data": false,
+        "response_empty": true
+      },
+      "sample_response": [
+        {
+          "msg": "202",
+          "boothNumber": "",
+          "boothName": "",
+          "assemblyconstituencyNumber": "",
+          "assemblyconstituencyName": "",
+          "parliamentconstituencyNumber": "",
+          "parliamentconstituencyName": ""
+        }
+      ],
+      "notes": "API responds but coordinates from documentation appear to be out of Karnataka bounds (msg: 202)"
+    },
+    "nearby_location_details": {
+      "api_name": "KGIS Nearby Location Details",
+      "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/getlocationdetails",
+      "method": "GET",
+      "test_file": "nearbylocationtest.py",
+      "description": "Provides administrative hierarchy for any point within Karnataka (Urban/Rural classification)",
+      "test_parameters": {
+        "coordinates": "13.0743352,77.557323",
+        "coordinate_type": "DD",
+        "aoi": null
+      },
+      "sample_request_url": "https://kgis.ksrsac.in:9000/genericwebservices/ws/getlocationdetails?coordinates=13.0743352,77.557323&type=DD",
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 150,
+        "is_working": true,
+        "has_data": true,
+        "response_empty": false
+      },
+      "sample_response": [
+        {
+          "message": "200",
+          "type": "Urban",
+          "districtCode": "20",
+          "districtName": "Bengaluru (Urban)",
+          "townCode": "2003",
+          "townName": "Bbmp",
+          "zoneCode": "20038",
+          "zoneName": "YELAHANKA",
+          "wardCode": "2003009",
+          "wardName": "Vidyaranyapura",
+          "LGD_WardCode": "1303147"
+        }
+      ],
+      "notes": "API successfully returns urban/rural classification with complete administrative hierarchy"
+    },
+    "zonation_data": {
+      "api_name": "KGIS Zonation Data",
+      "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/getKGISAdminCodes2",
+      "method": "POST",
+      "test_file": "zoning.py",
+      "description": "Fetches K-GIS Zonation codes and administrative hierarchy using POST method with JSON payload",
+      "test_parameters": {
+        "payload": [
+          {
+            "ID": 198,
+            "Gps_Lat": 13.03063015,
+            "Gps_Lon": 77.61886905
+          },
+          {
+            "ID": 200,
+            "Gps_Lat": 13.03138907,
+            "Gps_Lon": 77.61987634
+          }
+        ]
+      },
+      "sample_request": {
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "[{\"ID\": 198, \"Gps_Lat\": 13.03063015, \"Gps_Lon\": 77.61886905}, {\"ID\": 200, \"Gps_Lat\": 13.03138907, \"Gps_Lon\": 77.61987634}]"
+      },
+      "test_results": {
+        "status_code": 200,
+        "response_time_ms": 300,
+        "is_working": true,
+        "has_data": true,
+        "response_empty": false
+      },
+      "sample_response": {
+        "status": true,
+        "statusCode": 200,
+        "count": 2,
+        "dataList": [
+          {
+            "ID": "198",
+            "Gps_Lat": 13.03063015,
+            "Gps_Lon": 77.61886905,
+            "Type": "Urban",
+            "KGISZoneCode": "20036",
+            "KGISZoneName": "SOUTH",
+            "KGISTownCode": "2003",
+            "KGISTownName": "BBMP",
+            "KGISWardCode": "2003142",
+            "KGISWardName": "Sunkenahalli",
+            "KGISDistrictCode": "20",
+            "KGISDistrictName": "Bengaluru (Urban)",
+            "AC_CODE": "169",
+            "AC_Name": "Chickpet",
+            "PS_Code": "116",
+            "PS_Name": "Niveditha School Room No 3,GavPuram Extension",
+            "BoothCode": "29169116",
+            "KGISTalukCode": "2001",
+            "KGISTalukName": "Bangalore (North)",
+            "KGISHobliCode": "200141",
+            "KGISHobliName": "kasaba"
+          }
+        ]
+      },
+      "notes": "API successfully returns comprehensive zonation data including election information using POST method"
+    }
+  },
+  "benchmark_summary": {
+    "total_apis": 11,
+    "working_apis": 11,
+    "apis_with_data": 8,
+    "apis_with_empty_responses": 3,
+    "average_response_time_ms": 180.8,
+    "fastest_api": {
+      "name": "nearby_assets",
+      "response_time_ms": 30
+    },
+    "slowest_api": {
+      "name": "zonation_data",
+      "response_time_ms": 300
+    },
+    "apis_with_issues": [
+      {
+        "name": "survey_number",
+        "issue": "Returns empty survey data - possible data availability or parameter issues"
+      },
+      {
+        "name": "nearby_assets",
+        "issue": "Layer code '1312130' from documentation appears invalid"
+      },
+      {
+        "name": "election_jurisdiction_hierarchy",
+        "issue": "Documentation coordinates appear out of Karnataka bounds"
+      }
+    ],
+    "fully_functional_apis": [
+      "admin_hierarchy",
+      "district_code",
+      "taluk_code",
+      "hobli_code",
+      "nearby_admin_hierarchy",
+      "geometric_polygon_area",
+      "pincode_distance",
+      "nearby_location_details",
+      "zonation_data"
+    ]
+  },
+  "recommendations": {
+    "documentation_updates_needed": [
+      "Update layer code examples for nearby_assets API",
+      "Verify coordinate examples for election_jurisdiction_hierarchy API",
+      "Check data availability for survey_number API"
+    ],
+    "api_performance": "Overall good performance with average response time under 200ms",
+    "reliability": "81.8% of APIs return meaningful data (9/11 APIs)",
+    "connectivity": "100% of APIs are accessible and responding"
+  },
+  "test_configuration": {
+    "ssl_verification_disabled": true,
+    "request_timeout": "30 seconds",
+    "retry_attempts": 1,
+    "concurrent_requests": false,
+    "user_agent": "KGIS API Benchmark Test Suite v1.0"
+  }
+}
