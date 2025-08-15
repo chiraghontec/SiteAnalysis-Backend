@@ -1,0 +1,104 @@
+{
+  "timestamp": "2025-08-15T00:36:07.463339",
+  "total_apis": 7,
+  "apis": {
+    "benchmark_postal_hospital_api": {
+      "error": "'PostalHospitalAPI' object has no attribute 'get_postal_hospital_details'",
+      "success_rate": 0
+    },
+    "benchmark_village_geocoding_api": {
+      "error": "'VillageGeocodingAPI' object has no attribute 'get_village_coordinates'",
+      "success_rate": 0
+    },
+    "benchmark_village_reverse_geocoding_api": {
+      "error": "'VillageReverseGeocodingAPI' object has no attribute 'get_village_details'",
+      "success_rate": 0
+    },
+    "benchmark_lulc_aoi_wise_api": {
+      "error": "'LULCAOIWiseAPI' object has no attribute 'get_lulc_statistics'",
+      "success_rate": 0
+    },
+    "benchmark_routing_api": {
+      "error": "'RoutingAPI' object has no attribute 'get_shortest_path'",
+      "success_rate": 0
+    },
+    "Thematic Statistics API (LULC)": {
+      "api_name": "Thematic Statistics API (LULC)",
+      "total_tests": 5,
+      "successes": 5,
+      "success_rate": 100.0,
+      "avg_response_time": 0.23187637329101562,
+      "min_response_time": 0.19977283477783203,
+      "max_response_time": 0.3416299819946289,
+      "median_response_time": 0.20531320571899414,
+      "results": [
+        {
+          "district_code": "2001",
+          "execution_time": 0.3416299819946289,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 52,
+            "error_message": null
+          }
+        },
+        {
+          "district_code": "1028",
+          "execution_time": 0.20531320571899414,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 52,
+            "error_message": null
+          }
+        },
+        {
+          "district_code": "2902",
+          "execution_time": 0.20209288597106934,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 52,
+            "error_message": null
+          }
+        },
+        {
+          "district_code": "3302",
+          "execution_time": 0.19977283477783203,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 52,
+            "error_message": null
+          }
+        },
+        {
+          "district_code": "1917",
+          "execution_time": 0.2105729579925537,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 52,
+            "error_message": null
+          }
+        }
+      ]
+    },
+    "benchmark_geoid_api": {
+      "error": "'GeoidAPI' object has no attribute 'convert_ellipsoid_to_geoid'",
+      "success_rate": 0
+    }
+  },
+  "total_execution_time": 1.1609032154083252,
+  "overall": {
+    "total_tests": 5,
+    "total_successes": 5,
+    "overall_success_rate": 100.0,
+    "avg_api_success_rate": 100.0,
+    "total_response_times": 5,
+    "avg_response_time": 0.23187637329101562,
+    "min_response_time": 0.19977283477783203,
+    "max_response_time": 0.3416299819946289,
+    "median_response_time": 0.20531320571899414
+  }
+}

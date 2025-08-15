@@ -1,0 +1,422 @@
+{
+  "timestamp": "2025-08-15T00:37:35.412795",
+  "total_apis": 7,
+  "apis": {
+    "Postal & Hospital API": {
+      "api_name": "Postal & Hospital API",
+      "total_tests": 5,
+      "successes": 5,
+      "success_rate": 100.0,
+      "avg_response_time": 0.5073316097259521,
+      "min_response_time": 0.41294407844543457,
+      "max_response_time": 0.7233941555023193,
+      "median_response_time": 0.4699840545654297,
+      "results": [
+        {
+          "location": "Bangalore, Karnataka",
+          "execution_time": 0.7233941555023193,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 16,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Delhi",
+          "execution_time": 0.4699840545654297,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 16,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Mumbai, Maharashtra",
+          "execution_time": 0.5007977485656738,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 16,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Kolkata, West Bengal",
+          "execution_time": 0.41294407844543457,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 16,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Chennai, Tamil Nadu",
+          "execution_time": 0.4295380115509033,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 16,
+            "error_message": null
+          }
+        }
+      ]
+    },
+    "Village Geocoding API": {
+      "api_name": "Village Geocoding API",
+      "total_tests": 5,
+      "successes": 5,
+      "success_rate": 100.0,
+      "avg_response_time": 0.40812292098999026,
+      "min_response_time": 0.3782191276550293,
+      "max_response_time": 0.4382741451263428,
+      "median_response_time": 0.40405821800231934,
+      "results": [
+        {
+          "village": "Bangalore",
+          "execution_time": 0.3782191276550293,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 11,
+            "error_message": null
+          }
+        },
+        {
+          "village": "Mumbai",
+          "execution_time": 0.38202595710754395,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 11,
+            "error_message": null
+          }
+        },
+        {
+          "village": "Delhi",
+          "execution_time": 0.4380371570587158,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 12,
+            "error_message": null
+          }
+        },
+        {
+          "village": "Chennai",
+          "execution_time": 0.40405821800231934,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 11,
+            "error_message": null
+          }
+        },
+        {
+          "village": "Kolkata",
+          "execution_time": 0.4382741451263428,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 11,
+            "error_message": null
+          }
+        }
+      ]
+    },
+    "Village Reverse Geocoding API": {
+      "api_name": "Village Reverse Geocoding API",
+      "total_tests": 5,
+      "successes": 5,
+      "success_rate": 100.0,
+      "avg_response_time": 0.3746830940246582,
+      "min_response_time": 0.2962958812713623,
+      "max_response_time": 0.40813207626342773,
+      "median_response_time": 0.3919057846069336,
+      "results": [
+        {
+          "location": "Bangalore, Karnataka",
+          "execution_time": 0.40813207626342773,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 15,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Delhi",
+          "execution_time": 0.38295984268188477,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 15,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Mumbai, Maharashtra",
+          "execution_time": 0.3919057846069336,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 15,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Kolkata, West Bengal",
+          "execution_time": 0.3941218852996826,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 15,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Chennai, Tamil Nadu",
+          "execution_time": 0.2962958812713623,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 15,
+            "error_message": null
+          }
+        }
+      ]
+    },
+    "LULC AOI Wise API": {
+      "api_name": "LULC AOI Wise API",
+      "total_tests": 5,
+      "successes": 5,
+      "success_rate": 100.0,
+      "avg_response_time": 0.5485881328582763,
+      "min_response_time": 0.33498501777648926,
+      "max_response_time": 0.7467799186706543,
+      "median_response_time": 0.5561339855194092,
+      "results": [
+        {
+          "location": "Bangalore, Karnataka",
+          "execution_time": 0.5561339855194092,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 9,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Delhi",
+          "execution_time": 0.33498501777648926,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 9,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Mumbai, Maharashtra",
+          "execution_time": 0.5690469741821289,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 9,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Kolkata, West Bengal",
+          "execution_time": 0.5359947681427002,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 9,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Chennai, Tamil Nadu",
+          "execution_time": 0.7467799186706543,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 9,
+            "error_message": null
+          }
+        }
+      ]
+    },
+    "Routing API": {
+      "api_name": "Routing API",
+      "total_tests": 2,
+      "successes": 2,
+      "success_rate": 100.0,
+      "avg_response_time": 2.6020474433898926,
+      "min_response_time": 1.3518798351287842,
+      "max_response_time": 3.852215051651001,
+      "median_response_time": 2.6020474433898926,
+      "results": [
+        {
+          "route": "Bangalore to Mysore (Karnataka)",
+          "execution_time": 3.852215051651001,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 18,
+            "error_message": null
+          }
+        },
+        {
+          "route": "Delhi Central to Delhi North",
+          "execution_time": 1.3518798351287842,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 18,
+            "error_message": null
+          }
+        }
+      ]
+    },
+    "Thematic Statistics API (LULC)": {
+      "api_name": "Thematic Statistics API (LULC)",
+      "total_tests": 5,
+      "successes": 5,
+      "success_rate": 100.0,
+      "avg_response_time": 0.36368389129638673,
+      "min_response_time": 0.2881479263305664,
+      "max_response_time": 0.39646196365356445,
+      "median_response_time": 0.37166476249694824,
+      "results": [
+        {
+          "district_code": "2001",
+          "execution_time": 0.39646196365356445,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 52,
+            "error_message": null
+          }
+        },
+        {
+          "district_code": "1028",
+          "execution_time": 0.39162492752075195,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 52,
+            "error_message": null
+          }
+        },
+        {
+          "district_code": "2902",
+          "execution_time": 0.37051987648010254,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 52,
+            "error_message": null
+          }
+        },
+        {
+          "district_code": "3302",
+          "execution_time": 0.37166476249694824,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 52,
+            "error_message": null
+          }
+        },
+        {
+          "district_code": "1917",
+          "execution_time": 0.2881479263305664,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 52,
+            "error_message": null
+          }
+        }
+      ]
+    },
+    "Geoid API": {
+      "api_name": "Geoid API",
+      "total_tests": 5,
+      "successes": 5,
+      "success_rate": 100.0,
+      "avg_response_time": 0.254194450378418,
+      "min_response_time": 0.2484900951385498,
+      "max_response_time": 0.2708740234375,
+      "median_response_time": 0.2501249313354492,
+      "results": [
+        {
+          "location": "Bangalore, Karnataka",
+          "execution_time": 0.2484900951385498,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 11,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Delhi",
+          "execution_time": 0.2501249313354492,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 11,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Mumbai, Maharashtra",
+          "execution_time": 0.24872088432312012,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 11,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Kolkata, West Bengal",
+          "execution_time": 0.2708740234375,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 11,
+            "error_message": null
+          }
+        },
+        {
+          "location": "Chennai, Tamil Nadu",
+          "execution_time": 0.2527623176574707,
+          "analysis": {
+            "success": true,
+            "has_data": true,
+            "data_points": 11,
+            "error_message": null
+          }
+        }
+      ]
+    }
+  },
+  "total_execution_time": 17.491636037826538,
+  "overall": {
+    "total_tests": 32,
+    "total_successes": 32,
+    "overall_success_rate": 100.0,
+    "avg_api_success_rate": 100.0,
+    "total_response_times": 32,
+    "avg_response_time": 0.546472355723381,
+    "min_response_time": 0.2484900951385498,
+    "max_response_time": 3.852215051651001,
+    "median_response_time": 0.39529192447662354
+  }
+}

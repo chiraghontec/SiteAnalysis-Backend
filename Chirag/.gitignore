@@ -1,0 +1,36 @@
+# Python virtual environment
+.venv/
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+
+# Data files (except example files)
+data/*
+!data/.gitkeep
+
+# Benchmark reports
+data/reports/*
+!data/reports/.gitkeep
+
+# Benchmark logs
+data/benchmarks/*
+!data/benchmarks/.gitkeep
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
