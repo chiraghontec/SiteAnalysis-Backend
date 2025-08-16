@@ -1,4 +1,4 @@
-# KGIS API Testing Suite - Karthik's Implementation
+# KGIS API Testing Suite - 
 
 This repository contains a comprehensive testing suite for Karnataka Geographic Information System (KGIS) APIs, developed as part of the spike work by Karthik.
 
