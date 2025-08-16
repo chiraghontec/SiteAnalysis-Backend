@@ -8,6 +8,7 @@
     "timeout_seconds": 30
   },
   "api_benchmarks": {
+    "_divider_1": "==== API 1: ADMIN HIERARCHY ====",
     "admin_hierarchy": {
       "api_name": "KGIS Admin Hierarchy",
       "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/kgisadminhierarchy",
@@ -45,6 +46,7 @@
       },
       "notes": "API responds successfully with administrative hierarchy data"
     },
+    "_divider_2": "==== API 2: DISTRICT CODE LOOKUP ====",
     "district_code": {
       "api_name": "KGIS District Code Lookup",
       "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/districtcode",
@@ -73,6 +75,7 @@
       },
       "notes": "API successfully returns district code for valid district names"
     },
+    "_divider_3": "==== API 3: TALUK CODE LOOKUP ====",
     "taluk_code": {
       "api_name": "KGIS Taluk Code Lookup",
       "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/talukcode",
@@ -103,6 +106,7 @@
       },
       "notes": "API returns complete taluk and district hierarchy information"
     },
+    "_divider_4": "==== API 4: HOBLI CODE LOOKUP ====",
     "hobli_code": {
       "api_name": "KGIS Hobli Code Lookup",
       "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/hoblicode",
@@ -133,6 +137,7 @@
       ],
       "notes": "API successfully returns administrative hierarchy for valid hobli names"
     },
+    "_divider_5": "==== API 5: SURVEY NUMBER LOOKUP ====",
     "survey_number": {
       "api_name": "KGIS Survey Number Lookup",
       "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/surveyno",
@@ -161,6 +166,7 @@
       },
       "notes": "API responds but frequently returns empty survey data, possibly due to data availability or parameter mismatch"
     },
+    "_divider_6": "==== API 6: NEARBY ADMIN HIERARCHY ====",
     "nearby_admin_hierarchy": {
       "api_name": "KGIS Nearby Admin Hierarchy",
       "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/nearbyadminhierarchy",
@@ -197,6 +203,7 @@
       },
       "notes": "API successfully returns administrative hierarchy data for valid coordinates"
     },
+    "_divider_7": "==== API 7: NEARBY ASSETS ====",
     "nearby_assets": {
       "api_name": "KGIS Nearby Assets",
       "endpoint": "https://kgis.ksrsac.in:9000/NearbyAssets/ws/getNearbyAssetData",
@@ -230,6 +237,7 @@
       ],
       "notes": "API responds but layer code '1312130' from documentation appears to be invalid or outdated"
     },
+    "_divider_8": "==== API 8: GEOMETRIC POLYGON AREA ====",
     "geometric_polygon_area": {
       "api_name": "KGIS Geometric Polygon Area",
       "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/geomForSurveyNum",
@@ -261,6 +269,7 @@
       ],
       "notes": "API successfully returns polygon geometry data with coordinate points for valid survey numbers"
     },
+    "_divider_9": "==== API 9: PINCODE DISTANCE ====",
     "pincode_distance": {
       "api_name": "KGIS Distance Between PIN Codes",
       "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/getDistanceBtwPincode",
@@ -286,6 +295,7 @@
       ],
       "notes": "API successfully calculates distance between valid Karnataka PIN codes"
     },
+    "_divider_10": "==== API 10: ELECTION JURISDICTION HIERARCHY ====",
     "election_jurisdiction_hierarchy": {
       "api_name": "KGIS Election Jurisdiction Hierarchy",
       "endpoint": "https://kgis.ksrsac.in:9000/boundarywebservices/ws/getJurisdictionBoundary",
@@ -318,6 +328,7 @@
       ],
       "notes": "API responds but coordinates from documentation appear to be out of Karnataka bounds (msg: 202)"
     },
+    "_divider_11": "==== API 11: NEARBY LOCATION DETAILS ====",
     "nearby_location_details": {
       "api_name": "KGIS Nearby Location Details",
       "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/getlocationdetails",
@@ -354,6 +365,7 @@
       ],
       "notes": "API successfully returns urban/rural classification with complete administrative hierarchy"
     },
+    "_divider_12": "==== API 12: ZONATION DATA ====",
     "zonation_data": {
       "api_name": "KGIS Zonation Data",
       "endpoint": "https://kgis.ksrsac.in:9000/genericwebservices/ws/getKGISAdminCodes2",
@@ -421,6 +433,7 @@
       "notes": "API successfully returns comprehensive zonation data including election information using POST method"
     }
   },
+  "_section_divider_1": "==================== BENCHMARK SUMMARY ====================",
   "benchmark_summary": {
     "total_apis": 11,
     "working_apis": 11,
@@ -461,6 +474,7 @@
       "zonation_data"
     ]
   },
+  "_section_divider_2": "==================== RECOMMENDATIONS ====================",
   "recommendations": {
     "documentation_updates_needed": [
       "Update layer code examples for nearby_assets API",
@@ -471,6 +485,7 @@
     "reliability": "81.8% of APIs return meaningful data (9/11 APIs)",
     "connectivity": "100% of APIs are accessible and responding"
   },
+  "_section_divider_3": "==================== TEST CONFIGURATION ====================",
   "test_configuration": {
     "ssl_verification_disabled": true,
     "request_timeout": "30 seconds",
