@@ -53,17 +53,16 @@ class KGISNearbyAdminHierarchyTester:
         print(f"AOI: {aoi}")
         print(f"{'='*60}")
         
+        # Based on API documentation, use the correct parameter format
         try:
-            # Prepare parameters for the API call
+            print("Testing with correct API parameters...")
             params = {
-                'latitude': latitude,
-                'longitude': longitude,
-                'distance': distance,
-                'coordtype': coord_type,
-                'aoi': aoi
+                'coordinates': f"{latitude},{longitude}",  # Combined as per API doc
+                'distance': int(distance),  # In meters
+                'type': coord_type,  # DD or UTM
+                'aoi': aoi  # d/t/h combinations
             }
             
-            print("Testing GET request with coordinates...")
             print(f"Parameters: {params}")
             
             start_time = time.time()
@@ -75,20 +74,20 @@ class KGISNearbyAdminHierarchyTester:
             end_time = time.time()
             response_time = end_time - start_time
             
-            print(f"\nStatus Code: {response.status_code}")
+            print(f"Status Code: {response.status_code}")
             print(f"Response Time: {response_time:.3f} seconds")
             print(f"Response Headers: {dict(response.headers)}")
             
             if response.text:
                 try:
                     data = response.json()
-                    print(f"\nResponse JSON: {json.dumps(data, indent=2)}")
+                    print(f"Response JSON: {json.dumps(data, indent=2)}")
                     
                     # Parse and display administrative hierarchy if available
                     self._parse_admin_hierarchy(data)
                     
                 except json.JSONDecodeError:
-                    print(f"\nResponse Text: {response.text}")
+                    print(f"Response Text: {response.text}")
                     
             return {
                 'latitude': latitude,
@@ -108,7 +107,7 @@ class KGISNearbyAdminHierarchyTester:
             print(f"Unexpected Error: {e}")
             return {'error': str(e), 'parameters': params}
 
-    def _parse_admin_hierarchy(self, data: Dict[str, Any]):
+    def _parse_admin_hierarchy(self, data):
         """
         Parse and display the administrative hierarchy from the response
         """
@@ -116,13 +115,21 @@ class KGISNearbyAdminHierarchyTester:
         print("ADMINISTRATIVE HIERARCHY RESULTS")
         print(f"{'='*40}")
         
-        if isinstance(data, dict):
+        if isinstance(data, list):
+            # Response is a list of administrative units
+            for i, item in enumerate(data, 1):
+                print(f"\nResult {i}:")
+                if isinstance(item, dict):
+                    for key, value in item.items():
+                        print(f"  {key}: {value}")
+        
+        elif isinstance(data, dict):
             # Look for common fields that might contain admin hierarchy
-            hierarchy_fields = ['district', 'taluk', 'hobli', 'village', 'surveynumber']
+            hierarchy_fields = ['district', 'taluk', 'hobli', 'village', 'surveynumber', 'districtName', 'districtCode', 'talukName', 'talukCode', 'hobliName', 'hobliCode']
             
             for field in hierarchy_fields:
                 if field in data:
-                    print(f"{field.title()}: {data[field]}")
+                    print(f"{field}: {data[field]}")
             
             # If data is nested, try to extract hierarchy information
             if 'features' in data and isinstance(data['features'], list):
@@ -132,19 +139,35 @@ class KGISNearbyAdminHierarchyTester:
                     if 'properties' in feature:
                         props = feature['properties']
                         for key, value in props.items():
-                            if any(h in key.lower() for h in hierarchy_fields):
-                                print(f"  {key}: {value}")
+                            print(f"  {key}: {value}")
             
             # Look for any other relevant administrative data
-            admin_keys = [k for k in data.keys() if any(h in k.lower() for h in ['district', 'taluk', 'hobli', 'survey'])]
+            admin_keys = [k for k in data.keys() if any(h in k.lower() for h in ['district', 'taluk', 'hobli', 'survey', 'name', 'code'])]
             if admin_keys:
                 print("\nOther Administrative Data:")
                 for key in admin_keys:
                     print(f"  {key}: {data[key]}")
         
         print(f"{'='*40}")
-
+        
     def test_different_coordinate_systems(self, latitude: float, longitude: float, distance: float, aoi: str):
+        """
+        Test the API with different coordinate system types
+        """
+        coord_types = ['DD', 'UTM']  # Based on API documentation
+        
+        print(f"\n{'='*60}")
+        print("TESTING DIFFERENT COORDINATE SYSTEMS")
+        print(f"{'='*60}")
+        
+        results = []
+        for coord_type in coord_types:
+            print(f"\nTesting with coordinate type: {coord_type}")
+            result = self.test_api_with_coordinates(latitude, longitude, distance, coord_type, aoi)
+            results.append(result)
+            time.sleep(1)  # Small delay between requests
+        
+        return results
         """
         Test the API with different coordinate system types
         """
@@ -193,14 +216,14 @@ def main():
         distance = float(dist_input) if dist_input else 1000.0
         
         # Get coordinate type
-        coord_type = input("Enter Coordinate Type (e.g., WGS84, UTM, Geographic): ").strip()
+        coord_type = input("Enter Coordinate Type (DD for Decimal Degrees or UTM): ").strip()
         if not coord_type:
-            coord_type = "WGS84"
+            coord_type = "DD"
         
         # Get AOI
-        aoi = input("Enter AOI (Area of Interest, e.g., Bangalore, Karnataka): ").strip()
+        aoi = input("Enter AOI (d=District, t=Taluk, h=Hobli, e.g., 'd' or 'd,t,h'): ").strip()
         if not aoi:
-            aoi = "Bangalore"
+            aoi = "d"
             
     except ValueError as e:
         print(f"Invalid input: {e}")
@@ -208,8 +231,8 @@ def main():
         latitude = 12.9716  # Bangalore coordinates
         longitude = 77.5946
         distance = 1000.0
-        coord_type = "WGS84"
-        aoi = "Bangalore"
+        coord_type = "DD"
+        aoi = "d"
     
     print(f"\nUsing values:")
     print(f"Latitude: {latitude}")
