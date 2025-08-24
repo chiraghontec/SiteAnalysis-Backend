@@ -50,7 +50,17 @@ The agent has comprehensive knowledge of these 7 production-ready APIs:
    pip install google-adk
    ```
 
-4. **Configure Google ADK** (if not already done):
+4. **Set up environment variables**:
+   ```powershell
+   # Copy the example environment file
+   cp .env.example .env
+   
+   # Edit .env file with your actual credentials:
+   # - Google API key from https://aistudio.google.com/app/apikey
+   # - Neon database credentials from https://neon.tech
+   ```
+
+5. **Configure Google ADK** (if not already done):
    ```powershell
    # Follow Google ADK setup instructions
    # Set up authentication and project configuration
@@ -95,7 +105,92 @@ Returns current project status and capabilities:
 - Deployment readiness
 - Key features overview
 
-## 📝 Usage Examples
+## �️ Database Integration
+
+The agent now includes PostgreSQL database integration using **Neon** (cloud PostgreSQL) for data persistence, caching, and analytics.
+
+### Database Features
+
+- **API Response Caching**: Stores API responses to reduce redundant calls
+- **User Interaction History**: Tracks agent conversations and tool usage
+- **Spatial Data Support**: PostGIS extension for geographical queries
+- **Performance Analytics**: Monitors API usage patterns and response times
+
+### Neon Database Setup
+
+**Neon** provides a free PostgreSQL cloud database perfect for development:
+
+| Feature | Free Tier | Benefits |
+|---------|-----------|----------|
+| **Storage** | 0.5 GB | Enough for 100,000+ API responses |
+| **Compute** | Shared | Auto-pause when idle, instant wake-up |
+| **Extensions** | Full PostgreSQL | PostGIS for spatial data included |
+| **Backups** | Daily | Automatic data protection |
+| **SSL** | Included | Secure connections |
+
+### Database Configuration
+
+1. **Create Neon Account**: Visit [neon.tech](https://neon.tech) and create a free account
+2. **Create Database**: Default database `neondb` with user `neondb_owner`
+3. **Get Connection Details**: Copy host, password from Neon dashboard
+4. **Update .env file**:
+   ```bash
+   DB_HOST=your_neon_host_here
+   DB_NAME=neondb
+   DB_USER=neondb_owner
+   DB_PASSWORD=your_neon_password_here
+   DB_PORT=5432
+   ```
+
+### Database Schema
+
+The agent uses these tables for data persistence:
+
+```sql
+-- API responses caching table
+CREATE TABLE api_responses (
+    id SERIAL PRIMARY KEY,
+    api_name VARCHAR(50) NOT NULL,
+    request_params JSONB NOT NULL,
+    response_data JSONB NOT NULL,
+    response_time FLOAT,
+    location GEOGRAPHY(POINT, 4326),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- User interactions history
+CREATE TABLE user_interactions (
+    id SERIAL PRIMARY KEY,
+    session_id VARCHAR(100),
+    user_message TEXT,
+    agent_response TEXT,
+    tools_used JSONB,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Spatial indexing for performance
+CREATE INDEX idx_api_responses_location ON api_responses USING GIST (location);
+CREATE INDEX idx_api_responses_params ON api_responses USING GIN (request_params);
+```
+
+### Why Neon for This Project?
+
+- ✅ **Perfect Size**: 0.5GB handles 100,000+ geo API responses
+- ✅ **PostGIS Ready**: Built-in spatial data support for coordinates
+- ✅ **Auto-pause**: Saves resources when agent not in use
+- ✅ **Free Forever**: No credit card required, perfect for development
+- ✅ **pgAdmin Compatible**: Professional database management
+- ✅ **SSL Secure**: Production-grade security out of the box
+
+### Database Benefits for Site Analysis
+
+1. **Smart Caching**: Avoid repeated API calls for same locations
+2. **Performance Tracking**: Monitor which APIs are most used
+3. **User Analytics**: Understand common workflow patterns
+4. **Offline Analysis**: Query historical data without API calls
+5. **Spatial Queries**: Find nearby cached responses using PostGIS
+
+## �📝 Usage Examples
 
 ### Basic Agent Interaction
 
@@ -238,9 +333,19 @@ Update the API information in the tool functions:
 multi_tool_agent/
 │
 ├── agent.py              # Main agent implementation with tools
+├── .env                  # Environment variables (create from .env.example)
+├── .env.example          # Environment template with database config
 ├── README.md             # This documentation
 └── venv/                 # Virtual environment (after setup)
 ```
+
+### Environment Configuration
+
+The `.env.example` file contains templates for:
+
+- **Google AI API**: Required for agent functionality
+- **Neon Database**: Cloud PostgreSQL for data persistence
+- **Setup Instructions**: Step-by-step configuration guide
 
 ## 🚨 Troubleshooting
 
