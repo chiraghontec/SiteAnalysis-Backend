@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from src.api.thematic_statistics import ThematicStatisticsAPI
 from src.api.routing import RoutingAPI
 from src.api.geoid import GeoidAPI
+from src.api.postal_hospital import PostalHospitalAPI
 from src.utils.benchmark import benchmark_api_call
 import os
 from dotenv import load_dotenv
@@ -70,6 +71,31 @@ def geoid():
             
         api = GeoidAPI()
         result, query_time = benchmark_api_call(api.get_geoid_data, coordinates, parameters)
+        
+        return jsonify({
+            "result": result,
+            "query_time_ms": query_time,
+            "status": "success"
+        })
+    except Exception as e:
+        return jsonify({"error": str(e), "status": "error"}), 500
+
+@app.route('/api/postal-hospital', methods=['POST'])
+def postal_hospital():
+    try:
+        data = request.get_json()
+        lat = data.get('lat')
+        lng = data.get('lng')
+        buffer = data.get('buffer', 3000)
+        theme = data.get('theme', 'all')
+        parameters = data.get('parameters', {})
+        
+        if lat is None or lng is None:
+            return jsonify({"error": "Latitude and longitude are required"}), 400
+            
+        coordinates = {'lat': lat, 'lng': lng}
+        api = PostalHospitalAPI()
+        result, query_time = benchmark_api_call(api.get_proximity_data, coordinates, theme, buffer, parameters)
         
         return jsonify({
             "result": result,
