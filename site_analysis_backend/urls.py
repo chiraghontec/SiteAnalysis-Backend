@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from ninja import NinjaAPI
 from environmental_analysis.api import router as environmental_router
+from environmental_analysis.kgis.api import router as kgis_router
 
 api = NinjaAPI(
     title="Site Analysis API",
@@ -27,6 +28,7 @@ api = NinjaAPI(
 
 # Add the environmental analysis router
 api.add_router("/environmental/", environmental_router)
+api.add_router("/kgis/", kgis_router)
 
 @api.get("/hello")
 def hello(request):

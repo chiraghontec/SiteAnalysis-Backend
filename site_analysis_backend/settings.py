@@ -22,8 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # GDAL Configuration for GeoDjango
-GDAL_LIBRARY_PATH = '/opt/homebrew/Cellar/gdal/3.11.0_2/lib/libgdal.37.3.11.0.dylib'
-GEOS_LIBRARY_PATH = '/opt/homebrew/lib/libgeos_c.dylib'
+
 
 
 # Climate Data API Configuration
@@ -94,14 +93,11 @@ WSGI_APPLICATION = 'site_analysis_backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # PostgreSQL with PostGIS Configuration 
+# SQLite for quick testing (no PostgreSQL needed)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'site_analysis_db',
-        'USER': 'chirag',  # Default user for Homebrew PostgreSQL
-        'PASSWORD': '',    # No password needed for local Homebrew PostgreSQL
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
