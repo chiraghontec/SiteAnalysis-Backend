@@ -1,14 +1,227 @@
 # Multi Tool Agent - Site Analysis Backend Assistant
 
-This project implements an intelligent AI assistant using the [Google ADK](https://github.com/google/adk) framework, specifically designed to help with the Site Analysis Backend project. The agent provides expert knowledge about Bhuvan APIs, geospatial analysis, and Indian geographical data processing.
+This project implements an intelligent AI assistant using the [Google ADK](https://github.com/google/adk) framework, specifically designed to help with the Site Analysis Backend project. The agent provides expert knowledge about Bhuvan APIs, geospatial analysis, and Indian geographical data processing with **enterprise-grade database integration** and **interactive map functionality**.
 
 ## 🚀 Features
 
-- **Comprehensive API Knowledge**: Expert guidance on all 7 integrated Bhuvan APIs
-- **Intelligent Workflow Suggestions**: Recommends optimal API sequences for different use cases
-- **Geographical Context Analysis**: Analyzes coordinates and suggests appropriate APIs
-- **Usage Guides**: Detailed documentation for each API with examples
-- **Project Status Monitoring**: Real-time information about project capabilities
+- **🌐 Interactive Map Integration**: Real-time polygon drawing with database persistence
+- **🧠 Comprehensive API Knowledge**: Expert guidance on all 7 integrated Bhuvan APIs
+- **⚡ Intelligent Caching System**: 50-80% reduction in API calls with spatial indexing
+- **📊 Advanced Analytics Dashboard**: Real-time performance monitoring and insights  
+- **🗺️ Spatial Data Processing**: PostGIS-powered geographic analysis and proximity searches
+- **🔄 Smart Workflow Engine**: Recommends optimal API sequences for different use cases
+- **🎯 Geographical Context Analysis**: Analyzes coordinates and suggests appropriate APIs
+- **📚 Interactive Usage Guides**: Detailed documentation for each API with live examples
+- **📈 Project Status Monitoring**: Real-time information about project capabilities
+- **🗄️ Enterprise Database Integration**: Neon PostgreSQL with automatic scaling and SSL security
+
+## 🗺️ **NEW: Interactive Map Integration**
+
+### 🎯 **Map Drawing & Coordinate Capture**
+
+| Feature | Capability | Production Benefit |
+|---------|------------|-------------------|
+| **🖊️ Polygon Drawing** | Interactive map with drawing tools | Real-time site boundary definition |
+| **📍 Coordinate Storage** | Automatic database persistence | Agent access to user-defined areas |
+| **🎨 Visual Feedback** | Success/error highlighting | Immediate user confirmation |
+| **🔗 Session Management** | Unique session tracking | Multi-user coordinate isolation |
+| **⚡ Real-time Sync** | Instant database updates | Live coordinate availability |
+| **🗄️ Agent Integration** | Direct coordinate access | Seamless spatial analysis workflow |
+
+### 🌐 **Map Interface Features**
+
+```
+┌─────────────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Interactive Map       │───▶│   Apply Button   │───▶│   Database      │
+│                         │    │                  │    │                 │
+│ • Leaflet-based         │    │ • Coordinate     │    │ • PostgreSQL    │
+│ • Drawing Tools         │    │   Extraction     │    │ • Session IDs   │
+│ • Real-time Preview     │    │ • JSON Format    │    │ • Spatial Index │
+│ • Visual Feedback       │    │ • Auto Session   │    │ • Agent Access  │
+└─────────────────────────┘    └──────────────────┘    └─────────────────┘
+```
+
+### 🎨 **Map Usage Workflow**
+
+1. **🖱️ Draw Polygons**: Use interactive drawing tools on the map
+2. **📊 View Coordinates**: Real-time GeoJSON coordinate display
+3. **✅ Apply Changes**: Click "Apply" to save coordinates to database
+4. **🎯 Agent Access**: Your AI agent can immediately access the saved coordinates
+5. **📈 Spatial Analysis**: Perform geographic analysis on user-defined areas
+
+### 🔧 **Map Integration Architecture**
+
+#### **Frontend Components**
+- **🗺️ Leaflet Map**: Interactive mapping with drawing capabilities
+- **🖊️ Drawing Tools**: Polygon, rectangle, circle drawing tools
+- **📱 Responsive UI**: Works on desktop and mobile devices
+- **⚡ Real-time Updates**: Live coordinate preview and validation
+
+#### **Backend Integration**
+- **🔗 REST API**: `/api/map-interaction` endpoint for coordinate storage
+- **📊 Session Management**: Automatic session ID generation and tracking
+- **🗄️ Database Storage**: PostgreSQL with spatial indexing for fast retrieval
+- **🤖 Agent Access**: Direct coordinate access through `get_session_map_data()`
+
+#### **Database Schema**
+```sql
+-- Map interactions table structure
+CREATE TABLE map_interactions (
+    id BIGINT PRIMARY KEY,
+    session_id VARCHAR(255) NOT NULL,
+    user_id INTEGER,
+    interaction_type VARCHAR(100),
+    latitude NUMERIC(10,8) NOT NULL,
+    longitude NUMERIC(11,8) NOT NULL,
+    additional_data JSONB,
+    created_at TIMESTAMP DEFAULT NOW(),
+    
+    -- Foreign key to agent sessions
+    CONSTRAINT fk_map_agent_session 
+    FOREIGN KEY (session_id) REFERENCES agent(session_id)
+);
+```
+
+### 🎯 **Agent Map Access Methods**
+
+```python
+from database_manager import DatabaseManager
+
+# Initialize database connection
+db = DatabaseManager()
+
+# Get all coordinates for a session
+session_data = db.get_session_map_data("session_12345")
+print(f"Total coordinates: {session_data['total_interactions']}")
+print(f"Coordinates: {session_data['coordinates']}")
+
+# Access individual map interactions
+interactions = db.get_map_interactions("session_12345")
+for interaction in interactions:
+    print(f"Point: ({interaction['latitude']}, {interaction['longitude']})")
+    print(f"Type: {interaction['interaction_type']}")
+```
+
+### 🧪 **Map Integration Testing**
+
+#### **Test 1: Quick Map Database Test**
+```powershell
+# Test core map functionality
+cd "SiteAnalysis-Backend\Tanmay\multi_tool_agent"
+python quick_map_test.py
+```
+
+**Expected Output:**
+```
+✅ Database manager imported successfully
+🧪 Quick Map Integration Test...
+✅ Database connection successful!
+📝 Creating session: quick_test_20250928_222247
+✅ Agent session created
+✅ Map interaction saved for session quick_test_20250928_222247: (28.6139, 77.209)
+✅ Map interaction saved!
+✅ Retrieved 1 interactions
+🎉 Quick test PASSED!
+```
+
+#### **Test 2: Complete Integration Test**
+```powershell
+# Comprehensive map integration testing
+python test_map_integration_complete.py
+```
+
+**Validates:**
+- ✅ Database integration
+- ✅ Frontend workflow simulation
+- ✅ API endpoint functionality
+- ✅ Session management
+- ✅ Coordinate storage & retrieval
+
+#### **Test 3: Live Map Testing**
+1. **Start Backend Server:**
+   ```powershell
+   cd "SiteAnalysis-Backend\Chirag"
+   python app.py
+   ```
+
+2. **Open Map Interface:**
+   - Navigate to: `file:///c:/Users/[your-path]/map.html`
+   - Draw polygons on the interactive map
+   - Click "Apply" to save coordinates
+   - Verify success message with session ID
+
+3. **Query Saved Coordinates:**
+   ```sql
+   -- View all map interactions in pgAdmin4
+   SELECT session_id, latitude, longitude, created_at
+   FROM map_interactions 
+   ORDER BY created_at DESC LIMIT 10;
+   ```
+
+### 🔗 **Map API Endpoints**
+
+| Endpoint | Method | Purpose | Request Format |
+|----------|--------|---------|---------------|
+| `/api/map-interaction` | POST | Save coordinates | `{"session_id": "...", "latitude": 28.61, "longitude": 77.21}` |
+| `/api/map-data/<session_id>` | GET | Retrieve session data | URL parameter |
+| `/api/map-interactions` | GET | Get all interactions | Optional `?session_id=...&limit=10` |
+
+### 📊 **Map Data Analysis Examples**
+
+#### **Spatial Analysis with Saved Coordinates**
+```python
+# Analyze user-drawn areas
+from database_manager import DatabaseManager
+
+db = DatabaseManager()
+
+# Get coordinates from map interaction
+session_data = db.get_session_map_data("session_12345")
+coordinates = session_data['coordinates']
+
+# Calculate area (example for rectangular polygon)
+if len(coordinates) >= 4:
+    # Extract lat/lng bounds
+    lats = [coord['lat'] for coord in coordinates]
+    lngs = [coord['lng'] for coord in coordinates]
+    
+    area_info = {
+        'bounds': {
+            'north': max(lats), 'south': min(lats),
+            'east': max(lngs), 'west': min(lngs)
+        },
+        'center': {
+            'lat': sum(lats) / len(lats),
+            'lng': sum(lngs) / len(lngs)
+        }
+    }
+    
+    print(f"Analysis area: {area_info}")
+```
+
+#### **Integration with Bhuvan APIs**
+```python
+# Use map coordinates for API analysis
+def analyze_drawn_area(session_id):
+    db = DatabaseManager()
+    session_data = db.get_session_map_data(session_id)
+    
+    if session_data['total_interactions'] > 0:
+        # Get center point for API calls
+        coords = session_data['coordinates']
+        center_lat = sum(c['lat'] for c in coords) / len(coords)
+        center_lng = sum(c['lng'] for c in coords) / len(coords)
+        
+        # Now use with Bhuvan APIs
+        from bhuvan_tools import analyze_location_context
+        context = analyze_location_context(center_lat, center_lng)
+        
+        return {
+            'user_area': session_data,
+            'api_recommendations': context,
+            'analysis_ready': True
+        }
+```
 
 ## 📊 Supported Bhuvan APIs
 
@@ -107,29 +320,116 @@ Returns current project status and capabilities:
 
 ## 🗄️ Database Integration
 
-The agent now includes **advanced PostgreSQL database integration** using **Neon** (cloud PostgreSQL) for intelligent data persistence, smart caching, and comprehensive analytics. This transforms the agent from a simple assistant to a **production-ready, data-driven system**.
+The agent now includes **enterprise-grade PostgreSQL database integration** using **Neon** (cloud PostgreSQL) for intelligent data persistence, smart caching, comprehensive analytics, and **interactive map coordinate storage**. This transforms the agent from a simple assistant to a **production-ready, data-driven spatial analysis system**.
 
-### 🎯 **Database Features Overview**
+### 🎯 **Enhanced Database Features Overview**
 
 | Feature | Capability | Production Benefit |
 |---------|------------|-------------------|
-| **Smart API Caching** | Stores API responses with spatial indexing | 50-80% reduction in API calls |
-| **User Analytics** | Tracks interactions and behavior patterns | Data-driven optimization insights |
-| **Spatial Queries** | PostGIS geographic proximity searches | Location-based intelligence |
-| **Performance Monitoring** | Real-time system health and usage metrics | Proactive performance optimization |
-| **Auto-scaling** | Serverless pause/resume with connection retry | Cost-effective, highly available |
+| **🗺️ Interactive Map Storage** | Real-time polygon coordinate persistence | User-defined spatial analysis areas |
+| **⚡ Smart API Caching** | Stores API responses with spatial indexing | 50-80% reduction in API calls |
+| **📊 User Analytics** | Tracks interactions and behavior patterns | Data-driven optimization insights |
+| **🌍 Spatial Queries** | PostGIS geographic proximity searches | Location-based intelligence |
+| **📈 Performance Monitoring** | Real-time system health and usage metrics | Proactive performance optimization |
+| **🔄 Auto-scaling** | Serverless pause/resume with connection retry | Cost-effective, highly available |
+| **🎯 Session Management** | Multi-user coordinate isolation | Secure user data separation |
 
-### 🏗️ **Database Architecture**
+### 🏗️ **Enhanced Database Architecture**
 
 ```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Agent Tools   │───▶│ DatabaseManager  │───▶│ Neon PostgreSQL │
-│                 │    │                  │    │                 │
-│ • API Caching   │    │ • Connection     │    │ • PostGIS       │
-│ • User Tracking │    │ • Retry Logic    │    │ • SSL Security  │
-│ • Analytics     │    │ • Error Handle   │    │ • Auto-pause    │
-│ • Monitoring    │    │ • Performance    │    │ • Spatial Index │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
+┌─────────────────────────┐    ┌──────────────────┐    ┌─────────────────────────┐
+│   Multi-Tool Agent      │───▶│ DatabaseManager  │───▶│   Neon PostgreSQL       │
+│                         │    │                  │    │                         │
+│ • Map Interactions      │    │ • Connection     │    │ • PostGIS Spatial       │
+│ • API Caching           │    │ • Retry Logic    │    │ • SSL Security          │
+│ • User Analytics        │    │ • Error Handle   │    │ • Auto-pause/resume     │
+│ • Session Tracking      │    │ • Spatial Ops    │    │ • Multi-table Schema    │
+│ • Performance Monitor   │    │ • Map Coords     │    │ • Foreign Key Relations │
+└─────────────────────────┘    └──────────────────┘    └─────────────────────────┘
+```
+
+### 📊 **Complete Database Schema**
+
+#### **Core Tables**
+```sql
+-- Agent sessions table (primary)
+CREATE TABLE agent (
+    session_id VARCHAR(255) PRIMARY KEY,
+    user_id INTEGER,
+    user_queries JSONB DEFAULT '[]',
+    coordinates JSONB DEFAULT '[]',
+    api_calls JSONB DEFAULT '{}',
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Map interactions table (NEW - for interactive map)
+CREATE TABLE map_interactions (
+    id BIGINT PRIMARY KEY,
+    session_id VARCHAR(255) NOT NULL,
+    user_id INTEGER,
+    interaction_type VARCHAR(100) DEFAULT 'polygon_point',
+    latitude NUMERIC(10,8) NOT NULL,
+    longitude NUMERIC(11,8) NOT NULL,
+    zoom_level INTEGER,
+    map_bounds JSONB,
+    selected_area USER-DEFINED,  -- PostGIS geometry
+    additional_data JSONB,
+    created_at TIMESTAMP DEFAULT NOW(),
+    
+    -- Foreign key relationship
+    CONSTRAINT fk_map_agent_session 
+    FOREIGN KEY (session_id) REFERENCES agent(session_id)
+);
+
+-- API response caching table
+CREATE TABLE api_responses (
+    id BIGSERIAL PRIMARY KEY,
+    api_name VARCHAR(100) NOT NULL,
+    latitude DECIMAL(10, 8) NOT NULL,
+    longitude DECIMAL(11, 8) NOT NULL,
+    response_data JSONB NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    expires_at TIMESTAMP WITH TIME ZONE DEFAULT (NOW() + INTERVAL '24 hours')
+);
+
+-- User interactions tracking
+CREATE TABLE user_interactions (
+    id BIGSERIAL PRIMARY KEY,
+    user_query TEXT NOT NULL,
+    agent_response TEXT NOT NULL,
+    coordinates JSONB,
+    api_calls_made INTEGER DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Analytics and performance monitoring
+CREATE TABLE analytics (
+    id BIGSERIAL PRIMARY KEY,
+    event_type VARCHAR(50) NOT NULL,
+    event_data JSONB NOT NULL,
+    location_lat DECIMAL(10, 8),
+    location_lng DECIMAL(11, 8),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+```
+
+#### **Spatial Indexes for Performance**
+```sql
+-- PostGIS spatial indexes for fast geographic queries
+CREATE INDEX idx_api_responses_location 
+ON api_responses USING GIST (ST_Point(longitude, latitude));
+
+CREATE INDEX idx_analytics_location 
+ON analytics USING GIST (ST_Point(location_lng, location_lat));
+
+CREATE INDEX idx_map_interactions_location
+ON map_interactions USING GIST (ST_Point(longitude, latitude));
+
+-- Regular indexes for fast lookups
+CREATE INDEX idx_map_interactions_session ON map_interactions(session_id);
+CREATE INDEX idx_map_interactions_created ON map_interactions(created_at);
+CREATE INDEX idx_agent_sessions_user ON agent(user_id);
 ```
 
 ### 🌐 **Neon Database Setup**
@@ -500,6 +800,212 @@ Verifies database connectivity and returns PostgreSQL version information.
 ##### `cleanup_expired_cache() -> int`
 **Purpose**: Remove expired cache entries for performance optimization.
 **Returns**: Number of entries cleaned up
+
+---
+
+## 🗺️ **Interactive Map Integration System**
+
+### 🎯 **Complete Map Architecture Overview**
+
+The **Interactive Map Integration** provides a comprehensive solution for users to:
+- **Draw polygons** directly on the map interface
+- **Save coordinates** to PostgreSQL database with one-click Apply button
+- **Access saved data** through agent conversations for intelligent spatial analysis
+- **Track sessions** with isolated user data and comprehensive analytics
+
+```
+┌─────────────────────────┐    ┌─────────────────┐    ┌──────────────────────┐
+│     map.html            │───▶│   Flask API     │───▶│  PostgreSQL Database │
+│  Interactive Interface  │    │   (Port 5001)   │    │   Neon Cloud DB      │
+│                         │    │                 │    │                      │
+│ • Leaflet Map Engine    │    │ • /api/map-     │    │ • map_interactions   │
+│ • Polygon Drawing       │    │   interaction   │    │ • Spatial Indexing   │
+│ • Apply Button Save     │    │ • /api/map-data │    │ • Session Isolation  │
+│ • Coordinate Capture    │    │ • Error Handle  │    │ • Foreign Key Links  │
+│ • Session Management    │    │ • CORS Support  │    │ • PostGIS Support    │
+└─────────────────────────┘    └─────────────────┘    └──────────────────────┘
+```
+
+### 🚀 **Map Integration Quick Start**
+
+#### **Step 1: Start the Flask Backend Server**
+```powershell
+# Navigate to the agent directory
+cd C:\path\to\SiteAnalysis-Backend\Tanmay\multi_tool_agent
+
+# Start the Flask server (essential for map database connectivity)
+python app.py
+```
+**Expected Output:**
+```
+* Running on http://localhost:5001
+* Debug mode: on
+✅ Database connection established
+✅ Map API endpoints active
+```
+
+#### **Step 2: Open Interactive Map Interface**
+```powershell
+# Open map.html in your browser
+start map.html
+# OR navigate to file:///C:/path/to/multi_tool_agent/map.html
+```
+
+#### **Step 3: Draw and Save Polygon Coordinates**
+
+1. **🎨 Use Drawing Tools**: Click polygon drawing tool in top-left toolbar
+2. **📍 Draw Your Area**: Click on map to create polygon vertices  
+3. **💾 Save to Database**: Click **"Apply"** button to store coordinates
+4. **✅ Confirm Success**: Check browser console for success confirmation
+
+**Expected Console Output:**
+```javascript
+✅ Polygon coordinates saved successfully!
+✅ Session ID: user_session_12345
+✅ Coordinates stored in database
+✅ Agent can now access your drawn areas
+```
+
+### 🎯 **Map Feature Specifications**
+
+| Feature | Technical Implementation | User Benefit |
+|---------|-------------------------|--------------|
+| **🎨 Interactive Drawing** | Leaflet.draw with polygon tools | Intuitive area selection |
+| **💾 One-Click Save** | Apply button → REST API → PostgreSQL | Instant coordinate persistence |
+| **🔄 Session Management** | Unique session IDs + user isolation | Multi-user data separation |
+| **🗄️ Database Storage** | PostGIS spatial data + JSON metadata | Robust coordinate storage |
+| **📊 Agent Integration** | Direct database queries for spatial analysis | AI-powered location insights |
+| **⚡ Real-time Sync** | Immediate API calls with error handling | Seamless user experience |
+
+### 🛠️ **Map API Endpoints**
+
+#### **📍 Save Map Interaction** 
+```http
+POST /api/map-interaction
+Content-Type: application/json
+
+{
+  "coordinates": [
+    {"lat": 28.6139, "lng": 77.2090},
+    {"lat": 28.6150, "lng": 77.2100},
+    {"lat": 28.6160, "lng": 77.2110}
+  ],
+  "session_id": "user_session_12345",
+  "user_id": 1,
+  "zoom_level": 15
+}
+```
+
+**Response:**
+```json
+{
+  "message": "Map interaction saved successfully",
+  "session_id": "user_session_12345", 
+  "coordinates_saved": 3,
+  "timestamp": "2024-01-15T10:30:45Z"
+}
+```
+
+#### **📊 Retrieve Session Map Data**
+```http
+GET /api/map-data/{session_id}
+```
+
+**Response:**
+```json
+{
+  "session_id": "user_session_12345",
+  "total_interactions": 3,
+  "coordinates": [
+    {
+      "id": 1,
+      "latitude": 28.6139,
+      "longitude": 77.2090,
+      "created_at": "2024-01-15T10:30:45Z"
+    }
+  ],
+  "map_bounds": {
+    "north": 28.6160,
+    "south": 28.6139, 
+    "east": 77.2110,
+    "west": 77.2090
+  }
+}
+```
+
+#### **🗺️ Get All Map Interactions**
+```http
+GET /api/map-interactions
+```
+
+**Response:**
+```json
+{
+  "total_sessions": 15,
+  "total_interactions": 45,
+  "recent_interactions": [
+    {
+      "session_id": "user_session_12345",
+      "coordinates_count": 3,
+      "latest_activity": "2024-01-15T10:30:45Z"
+    }
+  ]
+}
+```
+
+### 🧪 **Enhanced Map Testing Framework**
+
+The system includes **enterprise-grade testing suite** with dedicated map integration testing:
+
+```powershell
+# Run complete map integration tests
+python test_map_integration_complete.py  # 🗺️ FULL Map integration testing
+python quick_map_test.py                 # 🗺️ Quick map validation
+python test_map_api.py                   # 🗺️ Map API endpoint testing
+
+# Run database and backend tests  
+python test_database.py                  # Database connectivity tests
+python test_agent_table.py               # Agent table operations
+python check_agent_schema.py             # Database schema validation
+```
+
+#### **🗺️ Map Integration Testing Results**
+```
+✅ Database connection established successfully
+✅ Map coordinates saved successfully  
+✅ Session map data retrieved successfully
+✅ All map interactions retrieved successfully
+✅ API endpoints responding correctly
+✅ Frontend-backend integration verified
+✅ PostgreSQL spatial data handling confirmed
+```
+
+### 🔧 **Map Database Manager API**
+
+#### **Map-Specific Methods**
+
+##### `save_map_interaction(session_id: str, coordinates: List[dict], user_id: int = None, zoom_level: int = 10) -> bool`
+**Purpose**: Save user-drawn polygon coordinates to database with session isolation.
+**Parameters**:
+- `session_id`: Unique session identifier
+- `coordinates`: List of {"lat": float, "lng": float} coordinate pairs
+- `user_id`: Optional user identifier for multi-user systems
+- `zoom_level`: Map zoom level for context
+**Returns**: `True` if all coordinates saved successfully
+
+##### `get_session_map_data(session_id: str) -> dict`
+**Purpose**: Retrieve all map interactions for a specific session with analytics.
+**Parameters**:
+- `session_id`: Session to retrieve data for
+**Returns**: Complete session data with coordinates, bounds, and interaction count
+
+##### `get_map_interactions(limit: int = 50) -> dict`
+**Purpose**: Get overview of all map interactions across sessions for analytics.
+**Parameters**:
+- `limit`: Maximum number of recent interactions to return
+**Returns**: System-wide map interaction summary with activity insights
+
+---
 
 ### 🎯 **Production Usage Patterns**
 
